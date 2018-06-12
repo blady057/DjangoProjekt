@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- header-wrap -->
+    <div id="header-wrap">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Strona Główna</a></li>
+                    <li><a href="{% url 'home' %}#services">Wykresy</a></li>
+                    <li><a href="{% url 'dodanie_danych' %}">Dodaj dane</a></li>
+                    <li><a href="{% url 'years' %}">Poszczególne lata</a></li>
+                </ul>
+            </nav>
+
+        </header>
+    </div>
+
+    <!-- content-wrap -->
+    <div class="content-wrap">
+
+
+        <!-- services -->
+        <section id="services">
+
+            <h1>Wykresy</h1>
+
+
+
+        </section>
+
+    </div>
+
+
+
+
+{% endblock content %}

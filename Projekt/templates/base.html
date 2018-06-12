@@ -1,0 +1,26 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Data analisys aplication</title>
+
+    {% include 'base/css.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+<div class='container'>
+    {% block content %}
+    {% endblock content %}
+</div>
+{% include 'base/js.html' %}
+<script>
+    $(document).ready(function () {
+        {% block jquery %}{% endblock %}
+    })
+</script>
+</body>
+</html>

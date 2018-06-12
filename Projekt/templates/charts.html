@@ -1,0 +1,334 @@
+{% extends 'base.html' %}
+
+<script>
+    {% block jquery %}
+        var endpoint = '/api/chart/data/'
+        var defaultData = []
+        var wszytko2015 = []
+        var wszytko2014 = []
+        var wszytko2013 = []
+        var wszytko2012 = []
+        var labels = []
+        var wszystko2 = []
+        var zyskN = []
+        var zyskB = []
+        var dzFinansowa = []
+        var sredniePrzy = 0
+        var srednieN = 0
+        var srednieB = 0
+        $.ajax({
+            method: "GET",
+            url: endpoint,
+            success: function (data) {
+                labels = data.labels
+                defaultData = data.default
+                wszytko2015 = data.all2015
+                wszytko2014 = data.all2014
+                wszytko2013 = data.all2013
+                wszytko2012 = data.all2012
+                wszytko2 = data.allLabels
+                zyskN = data.zyskN
+                zyskB = data.zyskB
+                dzFinansowa = data.dzFinansowa
+                sredniePrzy = data.avgPrzy
+                srednieN = data.avgZyskN
+                srednieB = data.avgZyskB
+                setChart()
+
+            },
+            error: function (error_data) {
+                console.log("error")
+                console.log(error_data)
+            }
+        })
+
+        function setChart() {
+            var ctx = document.getElementById("myChart");
+            var ctx2 = document.getElementById("myChart2");
+            var ctx3 = document.getElementById("myChart3");
+            var ctx4 = document.getElementById("myChart4");
+
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: ['przychody', '    średnie pzychody: ', sredniePrzy],
+                        data: defaultData,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            })
+            var myChart2 = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: ['Zysk netto', '  średni zysk netto', srednieN],
+                        data: zyskN,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            })
+            var myChart3 = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: ['Zysk brutto', ' sredni zysk brutto: ', srednieB],
+                        data: zyskB,
+
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            })
+            var myChart4 = new Chart(ctx4, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Działalność finansowa',
+                        data: dzFinansowa,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            })
+
+        }
+
+
+        {#var ctx = document.getElementById("myChart").getContext('2d');#}
+        {#var myChart = new Chart(ctx, {#}
+        {#    type: 'bar',#}
+        {#    data: {#}
+        {#        labels: labels,#}
+        {#        datasets: [{#}
+        {#            label: '# of Votes',#}
+        {#            data: defaultData,#}
+        {#            backgroundColor: [#}
+        {#                'rgba(255, 99, 132, 0.2)',#}
+        {#                'rgba(54, 162, 235, 0.2)',#}
+        {#                'rgba(255, 206, 86, 0.2)',#}
+        {#                'rgba(75, 192, 192, 0.2)',#}
+        {#                'rgba(153, 102, 255, 0.2)',#}
+        {#                'rgba(255, 159, 64, 0.2)'#}
+        {#            ],#}
+        {#            borderColor: [#}
+        {#                'rgba(255,99,132,1)',#}
+        {#                'rgba(54, 162, 235, 1)',#}
+        {#                'rgba(255, 206, 86, 1)',#}
+        {#                'rgba(75, 192, 192, 1)',#}
+        {#                'rgba(153, 102, 255, 1)',#}
+        {#                'rgba(255, 159, 64, 1)'#}
+        {#            ],#}
+        {#            borderWidth: 1#}
+        {#        }]#}
+        {#    },#}
+        {#    options: {#}
+        {#        scales: {#}
+        {#            yAxes: [{#}
+        {#                ticks: {#}
+        {#                    beginAtZero: true#}
+        {#                }#}
+        {#            }]#}
+        {#        }#}
+        {#    }#}
+        {##}
+
+
+    {% endblock %}
+</script>
+
+{% block content %}
+
+    <!-- header-wrap -->
+    <div id="header-wrap">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Strona Główna</a></li>
+                    <li><a href="{% url 'home' %}#services">Wykresy</a></li>
+                    <li><a href="{% url 'dodanie_danych' %}">Dodaj dane</a></li>
+                    <li><a href="{% url 'years' %}">Poszczególne lata</a></li>
+
+                </ul>
+            </nav>
+
+        </header>
+    </div>
+
+    <!-- content-wrap -->
+    <div class="content-wrap">
+
+        <!-- main -->
+        <section id="main">
+
+            <h1>O Aplikacji</h1>
+
+            <p class="intro">
+                Aplikacja służy do zbierania i analizowania informacji na zadany temat. Jako przykładową firmę wybraliśmy szwedzkie przedsiębiorstwo Electrolux
+                zajmujące się produkcją sprzętu AGD.
+
+            </p>
+
+
+            <div class="row no-bottom-margin">
+
+                <section class="col">
+                    <h2>Firma Electrolux</h2>
+
+                    <p>AB Electrolux – szwedzkie przedsiębiorstwo zajmujące się produkcją sprzętu AGD. Dostawca urządzeń do zastosowań domowych, jak i profesjonalnych, sprzedając ponad 40 milionów produktów każdego roku do odbiorców w ponad 150 krajach. Producent m.in. pralek, zmywarek, lodówek, odkurzaczy i kuchenek pod markami takimi, jak: Electrolux, AEG, Zanussi, Eureka, Faure oraz Frigidaire.
+                    </p>
+                </section>
+
+                <section class="col">
+                    <h2>Analiza marketingowa</h2>
+
+                    <p> Analiza marketingowa najczęściej odnosi się do analizy rynku i określeniu, jakie miejsce na tym rynku dana firma zajmuje. Określa, co wpływa na obecną sytuację oraz jakie możliwości mogą wystąpić w przyszłości, które spowolnią rozwój lub go przyspieszą. Ma to pomóc w lepszym zarządzaniu firmy w kontekście sprzedaży i przewagi konkurencyjnej. </p>
+                </section>
+            </div>
+
+
+        </section>
+
+        <!-- services -->
+        <section id="services">
+
+            <h1>Analiza Przychodów i zysków w ciągu kilku ostatnich lat</h1>
+            <p>Przykładowe wykresy przedstawiające przychody oraz zysk netto firmy Electrolux w latach
+                od 2012 do 2017 roku.</p>
+            <div class='row'>
+                <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
+                    <div class='col-sm-6'>
+
+                        <canvas id="myChart" width="400" height="400"></canvas>
+                    </div>
+                    <div class='col-sm-6'>
+                        <canvas id="myChart2" width="400" height="400"></canvas>
+                    </div>
+
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
+                    <div class='col-sm-6'>
+                        <canvas id="myChart3" width="400" height="400"></canvas>
+                    </div>
+                    <div class='col-sm-6'>
+                        <canvas id="myChart4" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+            <button>
+            <a href="{% url 'pdf' %}">Zobacz Więcej / Raport PDF</a>
+            </button>
+
+        </section>
+    </div>
+    <!-- footer -->
+
+
+
+
+{% endblock content %}
